@@ -13,7 +13,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class LoginLogoutDataDriven {
 
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException, InterruptedException 
 	{
 		// TODO Auto-generated method stub
 		LoginLogoutDataDriven lldd = new LoginLogoutDataDriven();
@@ -46,7 +46,7 @@ public class LoginLogoutDataDriven {
 		
 	}
 	
-	public void LoginLogoutTest(String [][] data)
+	public void LoginLogoutTest(String [][] data) throws InterruptedException
 	{
 		WebDriverManager.chromedriver().setup();
 		int rowlen = data.length;
@@ -61,6 +61,9 @@ public class LoginLogoutDataDriven {
 				driver.findElement(By.xpath("//input[@id='txtUsername']")).sendKeys(data[i][j]);
 				driver.findElement(By.xpath("//input[@id='txtPassword']")).sendKeys(data[i][j+1]);
 				driver.findElement(By.xpath("//input[@id='btnLogin']")).click();
+				driver.findElement(By.xpath("//a[@id='welcome']")).click();
+				Thread.sleep(4000);
+				driver.findElement(By.xpath("//a[text()='Logout']")).click();
 				driver.close();
 			}
 		}
